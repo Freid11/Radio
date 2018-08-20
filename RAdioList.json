@@ -1,0 +1,22 @@
+{
+  "radio1" : {
+    "name" : "Наше Радио",
+    "url_audio" : "http://nashe1.hostingradio.ru/nashe-128.mp3",
+    "url_image" : "http://player.nashe.ru/images/logo.svg"
+  },
+  "radio2" : {
+    "name" : "Наше 2.0",
+    "url_audio" : "https://nashe1.hostingradio.ru:18000/nashe20-128.mp3",
+    "url_image" : "http://www.nashe.ru/wp-content/uploads/2015/12/Logo-300x202.jpg"
+  },
+  "radio3" :{
+    "name" : "Панки в городе",
+    "url_audio" : "http://nashe1.hostingradio.ru/nashepunks.mp3",
+    "url_image" : "http://player.nashe.ru/images/logo.svg"
+  },
+  "radio4" :{
+    "name" : "Классика рока",
+    "url_audio" : "http://nashe1.hostingradio.ru/nasheclassic.mp3",
+    "url_image" : "http://player.nashe.ru/images/logo.svg"
+  }
+}

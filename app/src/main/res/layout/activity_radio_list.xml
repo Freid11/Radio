@@ -1,0 +1,42 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.RadioListActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bnv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:itemTextColor="@drawable/color_item_menu"
+            app:itemIconTint="@drawable/color_item_menu"
+            app:menu="@menu/menu_bottomnv"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_radio_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"/>
+    </LinearLayout>
+
+    <include layout="@layout/sheet_behavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="6dp"
+        android:src="@drawable/ic_favorite_border"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchorGravity="top|center_vertical" />
+
+</android.support.design.widget.CoordinatorLayout>

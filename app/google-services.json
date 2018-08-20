@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "79227112799",
+    "firebase_url": "https://radiorock-7af21.firebaseio.com",
+    "project_id": "radiorock-7af21",
+    "storage_bucket": "radiorock-7af21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79227112799:android:f2178e8fbe428ba4",
+        "android_client_info": {
+          "package_name": "udacity.louco.com.radio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79227112799-kh6k8v1t64v8c6d2uostqdreompf4spu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "udacity.louco.com.radio",
+            "certificate_hash": "1c999ec873ad384935e0779c15a5af1784e3dda1"
+          }
+        },
+        {
+          "client_id": "79227112799-hhucfuv6th6jehdd50pvsb433msq2j55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr7RHjEbAhDniwqavV5GLFur1r5ar7250"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79227112799-hhucfuv6th6jehdd50pvsb433msq2j55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

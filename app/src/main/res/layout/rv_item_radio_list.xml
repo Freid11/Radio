@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="horizontal"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/iv_logo_radio"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/no_image" />
+
+    <TextView
+        android:id="@+id/tv_name_radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        tools:text = "asdsdsdsdsdsdsdsd"/>
+
+</LinearLayout>
