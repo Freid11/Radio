@@ -10,13 +10,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -66,6 +65,9 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
     @BindView(R.id.ib_player_hide_behavior)
     ImageButton playHideBehavior;
 
+    @BindView(R.id.tb)
+    Toolbar toolbar;
+
     @BindView(R.id.fab_like)
     FloatingActionButton floatingActionButton;
 
@@ -81,10 +83,10 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio_list);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         animationLoad = new RotateAnimation(0,360, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
 
         animationLoad.setDuration(2000);
 
@@ -165,6 +167,7 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
                 .into(logoRadio);
 
         nameRadio.setText(radio.getName());
+        toolbar.setTitle(radio.getName());
         nameRadioHide.setText(radio.getName());
 
         showFavoriteState(radio);

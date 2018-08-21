@@ -8,6 +8,7 @@ import android.arch.lifecycle.LiveData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -57,31 +58,24 @@ public class RadioWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.lv_radio, active);
     }
 
-    private static void instanceLiveData(Context context) {
-        RadioDatabase mRadioDatabase;
-        ContentDao mContentDao;
+    private class getListRadio extends AsyncTask<Context, Void, Void>{
 
-        mRadioDatabase = RadioDatabase.getInstance(context);
-        mContentDao = mRadioDatabase.getContent();
+        @Override
+        protected Void doInBackground(Context... contexts) {
+            Context context = contexts[0];
+            RadioDatabase mRadioDatabase;
+            ContentDao mContentDao;
 
-        Single.just(mContentDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe(new DisposableSingleObserver<ContentDao>() {
-                    @Override
-                    public void onSuccess(ContentDao contentDao) {
-                        radioList = contentDao.getFavoriteNotLiveData();
+            mRadioDatabase = RadioDatabase.getInstance(context);
+            mContentDao = mRadioDatabase.getContent();
 
-                        Intent intent = new Intent(RadioWidget.ACTION_KEY);
-                        intent.setAction(RadioWidget.ACTION_KEY);
-                        context.sendBroadcast(intent);
-                        Log.d("Louco", "onSuccessWidget");
-                    }
+            radioList = mContentDao.getFavoriteNotLiveData();
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
+            Intent intent = new Intent(RadioWidget.ACTION_KEY);
+            intent.setAction(RadioWidget.ACTION_KEY);
+            context.sendBroadcast(intent);
+            return null;
+        }
     }
 
     @Override
@@ -111,7 +105,7 @@ public class RadioWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            instanceLiveData(context);
+            new getListRadio().execute(context);
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
