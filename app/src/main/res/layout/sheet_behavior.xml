@@ -15,9 +15,10 @@
         android:layout_weight="1"
         android:background="@color/colorAccent">
 
-        <android.support.v7.widget.AppCompatImageButton
+        <udacity.louco.com.radio.ui.CastomView.PlayerButton
             android:id="@+id/ib_player_hide_behavior"
             android:layout_width="60dp"
+            app:StatePlayer = "play"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
@@ -76,8 +77,9 @@
         android:layout_height="80dp"
         android:background="@color/colorPrimary">
 
-        <android.support.v7.widget.AppCompatImageButton
+        <udacity.louco.com.radio.ui.CastomView.PlayerButton
             android:id="@+id/ib_player_hide"
+            app:StatePlayer="play"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"

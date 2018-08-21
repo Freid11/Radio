@@ -12,8 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.bumptech.glide.Glide;
-import com.google.android.exoplayer.ExoPlayer;
 
 import java.util.List;
 
@@ -31,6 +28,7 @@ import udacity.louco.com.radio.R;
 import udacity.louco.com.radio.mvp.model.object.Radio;
 import udacity.louco.com.radio.mvp.presenter.RadioListPresenter;
 import udacity.louco.com.radio.mvp.view.RadioListView;
+import udacity.louco.com.radio.ui.CastomView.PlayerButton;
 import udacity.louco.com.radio.ui.adapter.RvAdapterRadioList;
 
 public class RadioListActivity extends MvpAppCompatActivity implements RadioListView {
@@ -60,10 +58,10 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
     TextView nameRadioHide;
 
     @BindView(R.id.ib_player_hide)
-    ImageButton playHide;
+    PlayerButton playHide;
 
     @BindView(R.id.ib_player_hide_behavior)
-    ImageButton playHideBehavior;
+    PlayerButton playHideBehavior;
 
     @BindView(R.id.tb)
     Toolbar toolbar;
@@ -74,7 +72,6 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
     @BindView(R.id.bnv)
     BottomNavigationView bottomNavigationView;
 
-    private Animation animationLoad;
     private RvAdapterRadioList rvAdapterRadioList;
     private BottomSheetBehavior behavior;
 
@@ -84,14 +81,6 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         setContentView(R.layout.activity_radio_list);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        animationLoad = new RotateAnimation(0,360, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-
-        animationLoad.setDuration(2000);
-
-        animationLoad.setRepeatMode(Animation.REVERSE);
-        animationLoad.setRepeatCount(Animation.INFINITE);
 
         behavior = BottomSheetBehavior.from(layout);
 
@@ -188,36 +177,7 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
 
     @Override
     public void showPlayerState(Integer state) {
-        if(state == ExoPlayer.STATE_READY){
-            showStateStop();
-        }else if(state == ExoPlayer.STATE_IDLE){
-            showStatePlay();
-        }else{
-            showStateLoad();
-        }
+        playHideBehavior.showPlayerState(state);
+        playHide.showPlayerState(state);
     }
-
-    public void showStatePlay() {
-        playHideBehavior.setImageDrawable(this.getDrawable(R.drawable.ic_play));
-        playHide.setImageDrawable(this.getDrawable(R.drawable.ic_play));
-        animationLoad.cancel();
-    }
-
-    public void showStateStop() {
-        playHideBehavior.setImageDrawable(this.getDrawable(R.drawable.ic_pause));
-        playHide.setImageDrawable(this.getDrawable(R.drawable.ic_pause));
-        animationLoad.cancel();
-    }
-
-    public void showStateLoad() {
-        playHideBehavior.setImageDrawable(this.getDrawable(R.drawable.ic_loop));
-        playHide.setImageDrawable(this.getDrawable(R.drawable.ic_loop));
-
-        animationLoad.reset();
-        playHide.startAnimation(animationLoad);
-
-        animationLoad.reset();
-        playHideBehavior.startAnimation(animationLoad);
-    }
-
 }
