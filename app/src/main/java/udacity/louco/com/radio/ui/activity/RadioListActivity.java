@@ -83,22 +83,23 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         setSupportActionBar(toolbar);
 
         behavior = BottomSheetBehavior.from(layout);
-
+        int heigh = bottomNavigationView.getHeight();
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (BottomSheetBehavior.STATE_DRAGGING == newState) {
-                    floatingActionButton.animate().scaleX(0).scaleY(0).setDuration(300).start();
+               /*if (BottomSheetBehavior.STATE_DRAGGING == newState) {
+                    bottomNavigationView.animate().translationY(0).setDuration(200).start();
                 } else if (BottomSheetBehavior.STATE_COLLAPSED == newState) {
-                    constraintLayout.animate().scaleX(1).setDuration(200).start();
-                    floatingActionButton.animate().scaleX(1).scaleY(1).setDuration(200).start();
-                } else if (BottomSheetBehavior.STATE_EXPANDED == newState) {
-                    constraintLayout.animate().scaleX(0).setDuration(300).start();
-                }
+                    bottomNavigationView.animate().translationY(heigh).setDuration(200).start();
+                }*/
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                floatingActionButton.animate().scaleY(1-slideOffset).scaleX(1-slideOffset).setDuration(0).start();
+                constraintLayout.animate().alpha(1-slideOffset).setDuration(0).start();
+                bottomNavigationView.animate().alpha(1-slideOffset).setDuration(0).start();
+
             }
         });
 

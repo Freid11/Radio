@@ -7,9 +7,12 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "NameBase", "\"radio_list\""
+
+        project.ext.set("archivesBaseName", "RadioRock-" + defaultConfig.versionName)
+
     }
     signingConfigs {
         // More code
