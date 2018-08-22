@@ -17,7 +17,7 @@ android {
     signingConfigs {
         // More code
         myConfig {
-            storeFile file('/Users/louco/Udacity/Radio/app/Untitled')
+            storeFile file("$rootDir/app/Untitled")
             storePassword 'Mixalich2'
             keyAlias 'LoucoKey'
             keyPassword 'Mixalich2'
@@ -69,7 +69,7 @@ dependencies {
     implementation 'com.arello-mobile:moxy-android:1.5.3'
     implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
     annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
-    compile 'com.google.android.exoplayer:exoplayer:r1.5.3'
+    implementation 'com.google.android.exoplayer:exoplayer:r1.5.3'
 }
 
 apply plugin: 'com.google.gms.google-services'

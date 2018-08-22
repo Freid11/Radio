@@ -18,14 +18,15 @@
         <udacity.louco.com.radio.ui.CastomView.PlayerButton
             android:id="@+id/ib_player_hide_behavior"
             android:layout_width="60dp"
-            app:StatePlayer = "play"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_play_button_behover"
+            android:contentDescription="@string/play"
             android:src="@drawable/ic_play"
+            app:StatePlayer="play"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +54,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/no_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_radio_player"
-            android:contentDescription="@string/no_image" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_radio_player" />
 
         <ImageButton
             android:id="@+id/ib_like_behavior"
@@ -65,10 +66,10 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/background_play_button_behover"
+            android:contentDescription="@string/like"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_favorite_border"
-            android:contentDescription="@string/no_image" />
+            app:srcCompat="@drawable/ic_favorite_border" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -79,14 +80,16 @@
 
         <udacity.louco.com.radio.ui.CastomView.PlayerButton
             android:id="@+id/ib_player_hide"
-            app:StatePlayer="play"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_play_button"
+            android:contentDescription="@string/play"
+
             android:src="@drawable/ic_play"
+            app:StatePlayer="play"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -100,8 +103,8 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:textSize="24sp"
             android:textColor="@color/white"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ib_player_hide"
             app:layout_constraintStart_toStartOf="parent"
