@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -75,6 +76,7 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
     private RvAdapterRadioList rvAdapterRadioList;
     private BottomSheetBehavior behavior;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,15 +85,9 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         setSupportActionBar(toolbar);
 
         behavior = BottomSheetBehavior.from(layout);
-        int heigh = bottomNavigationView.getHeight();
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-               /*if (BottomSheetBehavior.STATE_DRAGGING == newState) {
-                    bottomNavigationView.animate().translationY(0).setDuration(200).start();
-                } else if (BottomSheetBehavior.STATE_COLLAPSED == newState) {
-                    bottomNavigationView.animate().translationY(heigh).setDuration(200).start();
-                }*/
             }
 
             @Override
@@ -99,7 +95,6 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
                 floatingActionButton.animate().scaleY(1-slideOffset).scaleX(1-slideOffset).setDuration(0).start();
                 constraintLayout.animate().alpha(1-slideOffset).setDuration(0).start();
                 bottomNavigationView.animate().alpha(1-slideOffset).setDuration(0).start();
-
             }
         });
 
@@ -129,6 +124,7 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
             presenter.switchMenu(item.getItemId());
             item.setChecked(true);
             return true;});
+
     }
 
     private void clickPlayer() {
