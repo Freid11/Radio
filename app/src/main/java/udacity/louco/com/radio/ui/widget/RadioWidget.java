@@ -1,10 +1,9 @@
 package udacity.louco.com.radio.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +14,6 @@ import android.widget.RemoteViews;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Single;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
 import udacity.louco.com.radio.R;
 import udacity.louco.com.radio.component.WidgetService;
 import udacity.louco.com.radio.mvp.model.db.ContentDao;
@@ -36,14 +32,13 @@ public class RadioWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.radio_widget);
 
         fillList(context, views);
 
-        Intent intent = new Intent(context , RadioWidget.class);
+        Intent intent = new Intent(context, RadioWidget.class);
         intent.setAction("Radio");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         views.setPendingIntentTemplate(R.id.lv_radio, pendingIntent);
 
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, RadioWidget.class));
@@ -58,7 +53,8 @@ public class RadioWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.lv_radio, active);
     }
 
-    private class getListRadio extends AsyncTask<Context, Void, Void>{
+    @SuppressLint("StaticFieldLeak")
+    private class getListRadio extends AsyncTask<Context, Void, Void> {
 
         @Override
         protected Void doInBackground(Context... contexts) {
@@ -84,21 +80,18 @@ public class RadioWidget extends AppWidgetProvider {
 
         String action = intent.getAction();
         Radio radio = intent.getParcelableExtra(Radio.KEY_BUNDLE);
-        if(radio !=null) {
+        if (radio != null) {
             Log.d("Louco", radio.getName());
             Radio.sRadio.onNext(radio);
         }
 
-        if(action.equals(ACTION_KEY)){
-
+        if (action.equals(ACTION_KEY)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, RadioWidget.class));
-            for(int appWdgepid : appWidgetIds){
+            for (int appWdgepid : appWidgetIds) {
                 updateAppWidget(context, appWidgetManager, appWdgepid);
             }
-
         }
-
         super.onReceive(context, intent);
     }
 
@@ -120,4 +113,5 @@ public class RadioWidget extends AppWidgetProvider {
 
     }
 }
+
 

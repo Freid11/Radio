@@ -11,7 +11,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,7 +73,6 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
     BottomNavigationView bottomNavigationView;
 
     private RvAdapterRadioList rvAdapterRadioList;
-    private BottomSheetBehavior behavior;
 
 
     @Override
@@ -84,7 +82,7 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        behavior = BottomSheetBehavior.from(layout);
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
         behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -92,15 +90,13 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                floatingActionButton.animate().scaleY(1-slideOffset).scaleX(1-slideOffset).setDuration(0).start();
-                constraintLayout.animate().alpha(1-slideOffset).setDuration(0).start();
-                bottomNavigationView.animate().alpha(1-slideOffset).setDuration(0).start();
+                floatingActionButton.animate().scaleY(1 - slideOffset).scaleX(1 - slideOffset).setDuration(0).start();
+                constraintLayout.animate().alpha(1 - slideOffset).setDuration(0).start();
+                bottomNavigationView.animate().alpha(1 - slideOffset).setDuration(0).start();
             }
         });
 
-        rvAdapterRadioList = new RvAdapterRadioList(radio -> {
-            presenter.onClickRadio(radio);
-        });
+        rvAdapterRadioList = new RvAdapterRadioList(radio -> presenter.onClickRadio(radio));
 
         radioList.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         radioList.addItemDecoration(new DividerItemDecoration(radioList.getContext(), DividerItemDecoration.VERTICAL));
@@ -116,14 +112,15 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         floatingActionButton.setOnClickListener(v -> presenter.switchFavorite());
         likeButton.setOnClickListener(v -> presenter.switchFavorite());
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             presenter.getInstanceDatabase(this);
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             presenter.switchMenu(item.getItemId());
             item.setChecked(true);
-            return true;});
+            return true;
+        });
 
     }
 
@@ -178,3 +175,4 @@ public class RadioListActivity extends MvpAppCompatActivity implements RadioList
         playHide.showPlayerState(state);
     }
 }
+

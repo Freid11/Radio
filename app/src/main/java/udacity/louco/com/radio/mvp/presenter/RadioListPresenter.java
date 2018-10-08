@@ -22,9 +22,9 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 import udacity.louco.com.radio.R;
+import udacity.louco.com.radio.component.PlayerService;
 import udacity.louco.com.radio.mvp.model.FirebaseDatabaseApi;
 import udacity.louco.com.radio.mvp.model.Player;
-import udacity.louco.com.radio.component.PlayerService;
 import udacity.louco.com.radio.mvp.model.db.ContentDao;
 import udacity.louco.com.radio.mvp.model.db.RadioDatabase;
 import udacity.louco.com.radio.mvp.model.object.Radio;
@@ -33,22 +33,18 @@ import udacity.louco.com.radio.mvp.view.RadioListView;
 @InjectViewState
 public class RadioListPresenter extends MvpPresenter<RadioListView> {
 
-    private final FirebaseDatabaseApi mFirebaseDatabaseApi;
-    private final DatabaseReference mDatabaseReference;
-    private final ChildEventListener mChildEventListener;
     private boolean isShowFavoriteList = false;
 
-    private RadioDatabase mRadioDatabase;
     private ContentDao mContentDao;
 
     private List<Radio> mListRadioFavorite;
     private List<Radio> mListRadioDataBase = new ArrayList<>();
 
     public RadioListPresenter() {
-        mFirebaseDatabaseApi = FirebaseDatabaseApi.getInstance();
-        mDatabaseReference = mFirebaseDatabaseApi.getDatabaseReference();
+        FirebaseDatabaseApi mFirebaseDatabaseApi = FirebaseDatabaseApi.getInstance();
+        DatabaseReference mDatabaseReference = mFirebaseDatabaseApi.getDatabaseReference();
 
-        mChildEventListener = new ChildEventListener() {
+        ChildEventListener mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 showRadio(dataSnapshot);
@@ -110,14 +106,14 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
     }
 
     public void getInstanceDatabase(Context context) {
-        mRadioDatabase = RadioDatabase.getInstance(context);
+        RadioDatabase mRadioDatabase = RadioDatabase.getInstance(context);
         mContentDao = mRadioDatabase.getContent();
 
         LiveData<List<Radio>> listLiveData = mContentDao.getFavorite();
         listLiveData.observe((LifecycleOwner) context, radios -> {
             mListRadioFavorite = radios;
 
-            if(isShowFavoriteList){
+            if (isShowFavoriteList) {
                 getViewState().showsRadio(mListRadioFavorite);
             }
         });
@@ -137,9 +133,9 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
     }
 
     public void onClickRadio(Radio radio) {
-        if(mListRadioFavorite.contains(radio)){
+        if (mListRadioFavorite.contains(radio)) {
             radio.setLike(true);
-        }else{
+        } else {
             radio.setLike(false);
         }
         Radio.sRadio.onNext(radio);
@@ -148,26 +144,23 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
     public void switchFavorite() {
         Radio radio = Radio.sRadio.getValue();
         if (radio != null) {
+            Radio radioSearch = searchRadioInDatabase(radio);
             if (radio.isLike()) {
-                Radio delRadio = searchRadioInDatabase(radio);
-                if(delRadio!= null)
-                    mContentDao.delete(delRadio);
+                if (radioSearch != null)
+                    mContentDao.delete(radioSearch);
             } else {
-                mContentDao.insert(radio);
+                if (radioSearch == null)
+                    mContentDao.insert(radio);
             }
             radio.switchLike();
             getViewState().showFavoriteState(radio);
         }
     }
 
-    private Radio searchRadioInDatabase(Radio radio){
-        if(isShowFavoriteList){
-            return radio;
-        }else {
-            for (Radio radioFavorite : mListRadioFavorite) {
-                if (radioFavorite.equals(radio)) {
-                    return radioFavorite;
-                }
+    private Radio searchRadioInDatabase(Radio radio) {
+        for (Radio radioFavorite : mListRadioFavorite) {
+            if (radioFavorite.equals(radio)) {
+                return radioFavorite;
             }
         }
         return null;
@@ -185,8 +178,7 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
     }
 
     public void switchMenu(int itemId) {
-
-        switch (itemId){
+        switch (itemId) {
             case R.id.item_radio:
                 getViewState().showsRadio(mListRadioDataBase);
                 isShowFavoriteList = false;
@@ -198,3 +190,4 @@ public class RadioListPresenter extends MvpPresenter<RadioListView> {
         }
     }
 }
+

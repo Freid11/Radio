@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
@@ -20,6 +19,7 @@ public class PlayerButton extends android.support.v7.widget.AppCompatImageButton
     private Context context;
     private Animation animationLoad;
     private int value;
+
     public PlayerButton(Context context) {
         super(context);
         this.context = context;
@@ -29,7 +29,7 @@ public class PlayerButton extends android.support.v7.widget.AppCompatImageButton
     }
 
     private void createAnimation() {
-        animationLoad = new RotateAnimation(0,360, Animation.RELATIVE_TO_SELF,
+        animationLoad = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,
                 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
         animationLoad.setDuration(2000);
@@ -47,9 +47,9 @@ public class PlayerButton extends android.support.v7.widget.AppCompatImageButton
                 R.styleable.PlayerButton,
                 0, 0);
 
-        try{
+        try {
             value = a.getInt(R.styleable.PlayerButton_StatePlayer, 0);
-        }finally {
+        } finally {
             a.recycle();
         }
 
@@ -62,12 +62,12 @@ public class PlayerButton extends android.support.v7.widget.AppCompatImageButton
         createAnimation();
     }
 
-    public void showPlayerState(int state){
-        if(state == ExoPlayer.STATE_READY){
+    public void showPlayerState(int state) {
+        if (state == ExoPlayer.STATE_READY) {
             showStateStop();
-        }else if(state == ExoPlayer.STATE_IDLE){
+        } else if (state == ExoPlayer.STATE_IDLE) {
             showStatePlay();
-        }else{
+        } else {
             showStateLoad();
         }
     }
@@ -121,12 +121,8 @@ public class PlayerButton extends android.support.v7.widget.AppCompatImageButton
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
-    }
-
-    @Override
     protected void onFocusChanged(boolean gainFocus, int direction, @Nullable Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
     }
 }
+
